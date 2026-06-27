@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RememberUs — Nunca olvides lo importante</title>
+<meta name="description" content="RememberUs es la app de recordatorios compartidos para parejas, familia y amigos. Un acuerdo, no solo un aviso: todos lo ven, todos lo confirman, todos reciben el mismo aviso a tiempo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #E53935;
+    --accent-dim: #F5A5A2;
+    --accent-light: #FFEBEE;
+    --bg: #FAFAFA;
+    --card: #FFFFFF;
+    --ink: #202020;
+    --ink-soft: #808080;
+    --line: #ECECEC;
+    --cat-plan: #2196F3;
+    --cat-tarea: #9C27B0;
+    --cat-cita: #FF9500;
+    --cat-recado: #4CAF50;
+    --display: 'Outfit', sans-serif;
+    --body: 'Inter', sans-serif;
+    --maxw: 1120px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img, svg { display: block; max-width: 100%; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250,250,250,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+  }
+  .brand .dot {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand .dot svg { width: 16px; height: 16px; }
+  .navlinks { display: flex; gap: 28px; font-size: 0.92rem; color: var(--ink-soft); }
+  .navlinks a:hover { color: var(--ink); }
+  .navcta {
+    background: var(--ink);
+    color: #fff;
+    padding: 9px 18px;
+    border-radius: 100px;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+  @media (max-width: 760px) { .navlinks { display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 88px 0 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero { padding: 48px 0 40px; }
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before { content: '●'; font-size: 0.6rem; }
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.3rem, 4.6vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 22px;
+  }
+  h1 .accent { color: var(--accent); }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 480px;
+    margin-bottom: 34px;
+  }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 26px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 20px -8px rgba(229,57,53,.55); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 24px -8px rgba(229,57,53,.6); }
+  .btn-ghost { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--ink-soft); }
+  .soon { font-size: 0.82rem; color: var(--ink-soft); }
+  .soon b { color: var(--ink); }
+
+  /* ---------- Hero visual: bell + satellites ---------- */
+  .hero-visual { position: relative; aspect-ratio: 1/1; max-width: 460px; margin: 0 auto; }
+  .hv-svg { width: 100%; height: 100%; }
+  .pulse {
+    animation: pulse 2.6s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+  .orbit { animation: orbit 28s linear infinite; transform-origin: 230px 230px; }
+  @keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .orbit-r { animation-direction: reverse; }
+  @media (prefers-reduced-motion: reduce) {
+    .pulse, .orbit { animation: none; }
+  }
+
+  /* ---------- Section heading ---------- */
+  .section { padding: 88px 0; }
+  .section-head { max-width: 620px; margin-bottom: 52px; }
+  .section-head.center { margin-inline: auto; text-align: center; }
+  .kicker {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    letter-spacing: -0.015em;
+    margin-bottom: 14px;
+  }
+  .section-head p { color: var(--ink-soft); font-size: 1.05rem; }
+
+  /* ---------- Timeline (signature element) ---------- */
+  .timeline-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 44px 36px;
+  }
+  .timeline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 8px;
+    overflow-x: auto;
+    gap: 4px;
+    padding-bottom: 4px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 17px;
+    left: 17px;
+    right: 17px;
+    height: 2px;
+    background: var(--line);
+  }
+  .tpoint { position: relative; flex: 1; min-width: 92px; text-align: center; z-index: 1; }
+  .tdot {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+    font-size: 0.95rem;
+  }
+  .tpoint.now .tdot { background: var(--accent); color: #fff; box-shadow: 0 0 0 6px var(--accent-light); }
+  .tlabel { font-weight: 700; font-size: 0.92rem; margin-bottom: 4px; }
+  .tsub { font-size: 0.78rem; color: var(--ink-soft); }
+
+  /* ---------- Features ---------- */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  @media (max-width: 880px) { .features-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .features-grid { grid-template-columns: 1fr; } }
+  .feature {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 24px;
+  }
+  .ficon {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+    font-size: 1.2rem;
+  }
+  .feature h3 { font-family: var(--display); font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+  .feature p { color: var(--ink-soft); font-size: 0.92rem; }
+
+  /* ---------- Categories strip ---------- */
+  .catstrip { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .catpill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 18px; border-radius: 100px;
+    font-size: 0.88rem; font-weight: 600;
+    border: 1px solid var(--line);
+    background: var(--card);
+  }
+  .catpill .sw { width: 9px; height: 9px; border-radius: 50%; }
+
+  /* ---------- How it works ---------- */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  @media (max-width: 880px) { .steps { grid-template-columns: 1fr; gap: 28px; } }
+  .step { position: relative; padding-left: 0; }
+  .step-num {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 2.1rem;
+    color: var(--accent-dim);
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+  .step h3 { font-family: var(--display); font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+  .step p { color: var(--ink-soft); font-size: 0.94rem; }
+
+  /* ---------- Audience ---------- */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr 0.9fr;
+    gap: 18px;
+  }
+  @media (max-width: 880px) { .audience-grid { grid-template-columns: 1fr; } }
+  .aud {
+    border-radius: 20px;
+    padding: 30px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .aud.primary { background: var(--ink); color: #fff; }
+  .aud.secondary { background: var(--card); border: 1px solid var(--line); }
+  .aud-tag {
+    font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    opacity: 0.6;
+  }
+  .aud h3 { font-family: var(--display); font-size: 1.25rem; font-weight: 700; }
+  .aud p { font-size: 0.92rem; opacity: 0.82; }
+  .aud.secondary p { color: var(--ink-soft); opacity: 1; }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta {
+    background: var(--ink);
+    border-radius: 28px;
+    padding: 64px 40px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta h2 { color: #fff; }
+  .final-cta p { color: rgba(255,255,255,0.7); max-width: 460px; margin: 0 auto 30px; }
+  .final-cta .cta-row { justify-content: center; }
+
+  /* ---------- Footer ---------- */
+  footer { border-top: 1px solid var(--line); padding: 40px 0; }
+  .foot-row {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+  }
+  .footlinks { display: flex; gap: 22px; font-size: 0.88rem; color: var(--ink-soft); }
+  .footlinks a:hover { color: var(--ink); }
+  .footnote { font-size: 0.82rem; color: var(--ink-soft); }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <span class="dot">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C9 2 6.5 4.5 6.5 7.5V11C6.5 13 5.5 14.5 4 15.5V17H20V15.5C18.5 14.5 17.5 13 17.5 11V7.5C17.5 4.5 15 2 12 2Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.5 19.5C9.8 20.5 10.8 21 12 21C13.2 21 14.2 20.5 14.5 19.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </span>
+      RememberUs
+    </a>
+    <nav class="navlinks">
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#para-quien">Para quién es</a>
+      <a href="#privacidad">Privacidad</a>
+    </nav>
+    <a href="#descarga" class="navcta">Descargar</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Pensada primero para parejas</span>
+        <h1>Lo que decidís juntos,<br><span class="accent">no se os olvida.</span></h1>
+        <p class="lede">RememberUs convierte un recordatorio en un acuerdo: lo crea uno, lo ven todos, y el aviso llega solo, a tiempo, a cada persona implicada — sin que nadie tenga que estar detrás del otro.</p>
+        <div class="cta-row">
+          <a href="#descarga" class="btn btn-primary">Descargar la app</a>
+          <a href="#como-funciona" class="btn btn-ghost">Ver cómo funciona</a>
+        </div>
+        <p class="soon">Disponible para <b>Android</b> ahora · <b>iPhone</b> próximamente</p>
+      </div>
+
+      <div class="hero-visual">
+        <svg class="hv-svg" viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg">
+          <!-- connecting lines -->
+          <g stroke="#ECECEC" stroke-width="2">
+            <line x1="230" y1="230" x2="230" y2="60"/>
+            <line x1="230" y1="230" x2="400" y2="230"/>
+            <line x1="230" y1="230" x2="230" y2="400"/>
+            <line x1="230" y1="230" x2="60" y2="230"/>
+          </g>
+          <!-- orbit group 1 -->
+          <g class="orbit">
+            <circle cx="230" cy="60" r="30" fill="#FFFFFF" stroke="#E53935" stroke-width="2"/>
+            <circle cx="230" cy="60" r="10" fill="#E53935"/>
+          </g>
+          <g class="orbit orbit-r">
+            <circle cx="400" cy="230" r="26" fill="#FFFFFF" stroke="#2196F3" stroke-width="2"/>
+            <circle cx="400" cy="230" r="9" fill="#2196F3"/>
+          </g>
+          <g class="orbit">
+            <circle cx="230" cy="400" r="26" fill="#FFFFFF" stroke="#4CAF50" stroke-width="2"/>
+            <circle cx="230" cy="400" r="9" fill="#4CAF50"/>
+          </g>
+          <g class="orbit orbit-r">
+            <circle cx="60" cy="230" r="26" fill="#FFFFFF" stroke="#FF9500" stroke-width="2"/>
+            <circle cx="60" cy="230" r="9" fill="#FF9500"/>
+          </g>
+          <!-- center bell -->
+          <g class="pulse">
+            <circle cx="230" cy="230" r="68" fill="#E53935"/>
+            <path d="M230 196c-19 0-34 15-34 34v20c0 11-5 21-13 28v8h94v-8c-8-7-13-17-13-28v-20c0-19-15-34-34-34z" fill="white"/>
+            <path d="M216 296c2 6 7 10 14 10s12-4 14-10" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS / TIMELINE -->
+  <section class="section" id="como-funciona">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="kicker">El mecanismo</p>
+        <h2>Un solo recordatorio, el mismo aviso para todos</h2>
+        <p>En vez de confiar en que alguien se acuerde de avisar al resto, RememberUs reparte automáticamente la misma secuencia de avisos a cada persona implicada, a medida que se acerca la fecha.</p>
+      </div>
+
+      <div class="timeline-card">
+        <div class="timeline">
+          <div class="tpoint"><div class="tdot">24h</div><div class="tlabel">Primer aviso</div><div class="tsub">Para organizarse con tiempo</div></div>
+          <div class="tpoint"><div class="tdot">12h</div><div class="tlabel">Recordatorio</div><div class="tsub">Sigue en pie</div></div>
+          <div class="tpoint"><div class="tdot">6h</div><div class="tlabel">Se acerca</div><div class="tsub">Última oportunidad de reorganizar</div></div>
+          <div class="tpoint"><div class="tdot">1h</div><div class="tlabel">Ya casi</div><div class="tsub">Aviso final antes de la hora</div></div>
+          <div class="tpoint now"><div class="tdot">●</div><div class="tlabel">Es la hora</div><div class="tsub">A todos, a la vez</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Por qué es distinto</p>
+        <h2>No es un recordatorio. Es un compromiso compartido.</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="ficon" style="background:var(--accent-light); color:var(--accent);">👀</div>
+          <h3>Todos lo ven</h3>
+          <p>Crea un recordatorio una vez y cada persona implicada lo tiene en su propia lista, sin reenviar nada.</p>
+        </div>
+        <div class="feature">
+          <div class="ficon" style="background:#E3F2FD; color:var(--cat-plan);">✅</div>
+          <h3>Todos responden</h3>
+          <p>"Puedo" o "No puedo" — la otra persona se entera al instante, sin tener que preguntar.</p>
+        </div>
+        <div class="feature">
+          <div class="ficon" style="background:#FFF3E0; color:var(--cat-cita);">🔔</div>
+          <h3>Avisos que no dependen de nadie</h3>
+          <p>El sistema avisa solo, en cascada, hasta el momento exacto. No hace falta que nadie se acuerde de avisar al resto.</p>
+        </div>
+        <div class="feature">
+          <div class="ficon" style="background:#F3E5F5; color:var(--cat-tarea);">🔁</div>
+          <h3>De una vez o para siempre</h3>
+          <p>Citas puntuales o rutinas que se repiten cada semana, cada mes o en días concretos.</p>
+        </div>
+        <div class="feature">
+          <div class="ficon" style="background:#E8F5E9; color:var(--cat-recado);">👥</div>
+          <h3>Conexiones y grupos</h3>
+          <p>Conecta por código o QR, y organiza recordatorios por grupos: pareja, familia, amigos.</p>
+        </div>
+        <div class="feature">
+          <div class="ficon" style="background:var(--accent-light); color:var(--accent);">🕓</div>
+          <h3>Sugerir otra hora</h3>
+          <p>Si algo no encaja, se propone una hora nueva y la otra persona la acepta o la rechaza desde su propio aviso.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;">
+        <div class="catstrip">
+          <span class="catpill"><span class="sw" style="background:var(--cat-plan);"></span>Plan</span>
+          <span class="catpill"><span class="sw" style="background:var(--cat-tarea);"></span>Tarea</span>
+          <span class="catpill"><span class="sw" style="background:var(--cat-cita);"></span>Cita</span>
+          <span class="catpill"><span class="sw" style="background:var(--cat-recado);"></span>Recado</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section" style="background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">En la práctica</p>
+        <h2>De la idea al aviso, en tres pasos</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Conecta con tu gente</h3>
+          <p>Comparte tu código o escanea un QR para conectar con tu pareja, tu familia o tus amigos.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Crea el recordatorio</h3>
+          <p>Título, fecha, y con quién lo compartes. Personal o compartido, de una vez o recurrente.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Llega solo, a todos</h3>
+          <p>Cada persona recibe la misma secuencia de avisos en su teléfono, sin que nadie tenga que reenviar nada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIENCE -->
+  <section class="section" id="para-quien">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Para quién es</p>
+        <h2>Empezamos por las parejas. Crecemos contigo.</h2>
+      </div>
+      <div class="audience-grid">
+        <div class="aud primary">
+          <span class="aud-tag">Ahora mismo</span>
+          <h3>Parejas</h3>
+          <p>La cita del médico, el cumpleaños de su madre, quién recoge el paquete. Las cosas que decidís entre dos, ahora avisan a los dos.</p>
+        </div>
+        <div class="aud secondary">
+          <span class="aud-tag">Muy pronto</span>
+          <h3>Familia</h3>
+          <p>Turnos, medicinas, recogidas del colegio — coordinarse sin grupos de WhatsApp interminables.</p>
+        </div>
+        <div class="aud secondary">
+          <span class="aud-tag">Muy pronto</span>
+          <h3>Amigos</h3>
+          <p>Planes, quedadas, esa promesa de "lo organizamos" que nunca se concreta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section" id="descarga">
+    <div class="wrap">
+      <div class="final-cta">
+        <h2>Nunca olvides lo importante.</h2>
+        <p>RememberUs ya está disponible para Android. La versión para iPhone llega pronto.</p>
+        <div class="cta-row">
+          <a href="#" class="btn btn-primary">Descargar para Android</a>
+          <a href="#" class="btn" style="background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.25);">Avísame cuando llegue a iPhone</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="privacidad">
+  <div class="wrap foot-row">
+    <div class="brand" style="font-size:1rem;">
+      <span class="dot" style="width:24px;height:24px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:13px;height:13px;"><path d="M12 2C9 2 6.5 4.5 6.5 7.5V11C6.5 13 5.5 14.5 4 15.5V17H20V15.5C18.5 14.5 17.5 13 17.5 11V7.5C17.5 4.5 15 2 12 2Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </span>
+      RememberUs
+    </div>
+    <div class="footlinks">
+      <a href="/privacidad.html">Política de privacidad</a>
+      <a href="mailto:rememberus.apk@gmail.com">Contacto</a>
+    </div>
+    <div class="footnote">© 2026 RememberUs</div>
+  </div>
+</footer>
+
+</body>
+</html>
