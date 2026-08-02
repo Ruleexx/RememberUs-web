@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RememberUs</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #E53935;
+    --accent-dim: #F5A5A2;
+    --bg: #FAFAFA;
+    --card: #FFFFFF;
+    --ink: #202020;
+    --ink-soft: #808080;
+    --line: #ECECEC;
+    --display: 'Outfit', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 36px 28px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  .dot {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 26px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+  .spinner {
+    width: 28px; height: 28px;
+    border: 3px solid var(--accent-dim);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .btn {
+    display: inline-block;
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 14px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+  }
+  .btn + .btn { margin-top: 10px; }
+  .btn-outline {
+    background: #fff;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+  }
+  #fallback { display: none; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div id="cargando">
+      <div class="spinner"></div>
+      <h1>Abriendo RememberUs…</h1>
+      <p>Si no se abre automáticamente, descarga la app o ábrela manualmente.</p>
+    </div>
+    <div id="fallback">
+      <div class="dot">🔔</div>
+      <h1>Abre este enlace desde tu móvil</h1>
+      <p>Este enlace de invitación solo funciona dentro de la app RememberUs.</p>
+      <a class="btn" id="btnAbrir" href="#">Abrir en RememberUs</a>
+      <a class="btn btn-outline" href="https://play.google.com/store/apps/details?id=com.ruleexx.rememberus">Descargar en Google Play</a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var path = window.location.pathname.replace(/^\/+/, ''); // "conectar/ABC123" o "grupo/xyz789"
+      var deepLink = 'rememberus://' + path;
+
+      document.getElementById('btnAbrir').href = deepLink;
+
+      var yaSeFue = false;
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) yaSeFue = true;
+      });
+
+      window.location.href = deepLink;
+
+      setTimeout(function () {
+        if (!yaSeFue) {
+          document.getElementById('cargando').style.display = 'none';
+          document.getElementById('fallback').style.display = 'block';
+        }
+      }, 1500);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ruleexx.rememberus",
+      "sha256_cert_fingerprints": [
+        "B4:73:95:FC:25:50:3E:A5:0B:9A:97:DB:54:AA:AD:E6:F8:90:9E:75:79:A7:E4:97:5E:75:B3:01:FA:1A:1B:3D"
+      ]
+    }
+  }
+]
